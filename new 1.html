@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة المشاعر (CSS فقط)</title>
+    <style>
+        /* ------------------- التصميم الأساسي ------------------- */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f9;
+            margin: 20px;
+            text-align: center;
+            padding-bottom: 50px; /* مسافة سفلية للمحتوى */
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        /* ------------------- منطقة اللوحة ------------------- */
+        .feelings-board {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 3 أعمدة متساوية */
+            gap: 15px;
+            max-width: 900px;
+            margin: 0 auto 30px;
+            padding: 15px;
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* ------------------- تصميم مربع الشعور ------------------- */
+        .feeling-option {
+            /* تصميم الزر نفسه */
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s, border 0.2s;
+            border: 3px solid transparent; 
+            min-height: 150px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* تأثير عند مرور الماوس (Hover) */
+        .feeling-option:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+            border: 3px solid #007bff; /* إطار أزرق فاتح عند التمرير */
+        }
+
+        /* ------------------- تصميم الرموز والنصوص ------------------- */
+        .emoji {
+            font-size: 4.5em; 
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .feeling-option p {
+            font-size: 1.3em; 
+            font-weight: bold;
+            color: #333;
+            margin: 0;
+        }
+
+        /* ------------------- ألوان الخلفية ------------------- */
+        #happy { background-color: #d4edda; } 
+        #angry { background-color: #f8d7da; } 
+        #sad   { background-color: #cce5ff; } 
+        #scared { background-color: #fff3cd; } 
+        #excited { background-color: #ffe5f4; } 
+        #calm { background-color: #d1ecf1; } 
+        
+    </style>
+</head>
+<body>
+
+    <h1>لوحة المشاعر البصرية</h1>
+    <h2>اختر الشعور الذي يناسبك الآن:</h2>
+    
+    <div class="feelings-board">
+        
+        <div class="feeling-option" id="happy">
+            <span class="emoji">😊</span>
+            <p>سعيد</p>
+        </div>
+
+        <div class="feeling-option" id="angry">
+            <span class="emoji">😡</span>
+            <p>غاضب</p>
+        </div>
+        
+        <div class="feeling-option" id="sad">
+            <span class="emoji">😢</span>
+            <p>حزين</p>
+        </div>
+        
+        <div class="feeling-option" id="scared">
+            <span class="emoji">😨</span>
+            <p>خائف</p>
+        </div>
+        
+        <div class="feeling-option" id="excited">
+            <span class="emoji">🤩</span>
+            <p>متحمس</p>
+        </div>
+        
+        <div class="feeling-option" id="calm">
+            <span class="emoji">😌</span>
+            <p>هادئ</p>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>⚠️ هذه اللوحة مصممة للعرض والتصميم فقط. للتفاعل (النطق أو التسجيل)، يلزم استخدام JavaScript.</p>
+    </footer>
+
+</body>
+</html>
