@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Emotion Board for Kids</title>
     <style>
-        /* (*** CSS styles remain the same for visual appearance ***) */
+        /* 1. التصميم الأساسي للشاشات الكبيرة (لابتوب) */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
@@ -14,78 +14,121 @@
             justify-content: center;
             min-height: 100vh;
             margin: 0;
-            background-color: #f0f8ff; 
+            background-color: #f0f8ff;
             color: #333;
+            padding: 20px;
         }
 
         h1 {
             color: #2c3e50;
             margin-bottom: 30px;
+            text-align: center;
             border-bottom: 3px solid #3498db;
             padding-bottom: 10px;
         }
 
+        /* حاوية لوحة المشاعر (عرض أفقي على اللابتوب) */
         .emotions-board {
             display: flex;
-            gap: 20px; 
+            flex-wrap: nowrap;
+            gap: 20px;
             padding: 20px;
             background-color: #fff;
             border-radius: 15px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            max-width: 900px; 
+            width: 100%;
         }
 
         .emotion-item {
             cursor: pointer;
             text-align: center;
             transition: transform 0.2s ease-in-out, box-shadow 0.2s;
-            padding: 15px;
+            padding: 10px;
             border-radius: 10px;
-            border: 2px solid transparent; 
+            border: 2px solid transparent;
+            flex-grow: 1; 
         }
 
         .emotion-item:hover {
-            transform: scale(1.1); 
-            box-shadow: 0 0 15px rgba(52, 152, 219, 0.5); 
+            transform: scale(1.05); 
+            box-shadow: 0 0 15px rgba(52, 152, 219, 0.5);
         }
 
         .emoji {
-            font-size: 60px; 
+            font-size: 50px; 
             display: block;
-            line-height: 1; 
+            line-height: 1;
         }
-
-        /* Coloring for each emoji */
+        
+        /* تلوين الإيموجي */
         .happy .emoji { color: #2ecc71; }
         .happy { border-color: #2ecc71; }
-
         .sad .emoji { color: #3498db; }
         .sad { border-color: #3498db; }
-
         .angry .emoji { color: #e74c3c; }
         .angry { border-color: #e74c3c; }
-
         .scared .emoji { color: #9b59b6; }
         .scared { border-color: #9b59b6; }
-
         .calm .emoji { color: #1abc9c; }
         .calm { border-color: #1abc9c; }
 
-        /* Message box area */
+        /* منطقة عرض الرسالة */
         #message-box {
             margin-top: 30px;
-            padding: 15px 30px;
-            min-height: 50px;
+            padding: 15px;
             width: 80%;
             max-width: 500px;
             background-color: #ecf0f1;
             border-radius: 8px;
             text-align: center;
-            font-size: 24px;
+            font-size: 20px;
             font-weight: bold;
             color: #2c3e50;
             border: 2px dashed #3498db;
         }
 
+        /* 2. Media Query (التصميم الخاص بالهواتف والأجهزة الضيقة) */
+        @media (max-width: 650px) {
+            
+            /* ترتيب العناصر عمودياً على شاشات الموبايل */
+            .emotions-board {
+                flex-direction: column; 
+                gap: 10px; 
+                padding: 10px;
+                box-shadow: none; 
+                border: none;
+                max-width: 95%;
+            }
+
+            /* جعل كل عنصر يمتد بعرض كامل الشاشة مع حدود واضحة */
+            .emotion-item {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 10px;
+                border: 2px solid #ddd;
+            }
+
+            .emoji {
+                font-size: 40px; 
+            }
+            
+            /* إزالة تأثير التكبير عند التحريك لأنه غير عملي باللمس */
+            .emotion-item:hover {
+                transform: none; 
+            }
+
+            h1 {
+                font-size: 22px;
+            }
+            
+            #message-box {
+                font-size: 18px; 
+                padding: 10px;
+                width: 95%;
+            }
+        }
     </style>
 </head>
 <body>
@@ -96,42 +139,37 @@
         
         <div class="emotion-item happy" 
              data-emotion="I am happy! I feel comfortable and joyful." 
-             onmouseover="showFeeling(this)" 
-             onmouseout="clearMessage()">
+             onclick="showFeeling(this)">
             <span class="emoji">😊</span>
         </div>
 
         <div class="emotion-item sad" 
              data-emotion="I am sad... I need a hug." 
-             onmouseover="showFeeling(this)" 
-             onmouseout="clearMessage()">
+             onclick="showFeeling(this)">
             <span class="emoji">😢</span>
         </div>
 
         <div class="emotion-item angry" 
              data-emotion="I am angry! I need a quiet place to breathe." 
-             onmouseover="showFeeling(this)" 
-             onmouseout="clearMessage()">
+             onclick="showFeeling(this)">
             <span class="emoji">😡</span>
         </div>
 
         <div class="emotion-item scared" 
              data-emotion="I am scared... Can I hold your hand?" 
-             onmouseover="showFeeling(this)" 
-             onmouseout="clearMessage()">
+             onclick="showFeeling(this)">
             <span class="emoji">😨</span>
         </div>
 
         <div class="emotion-item calm" 
              data-emotion="I am calm and relaxed. Everything is okay." 
-             onmouseover="showFeeling(this)" 
-             onmouseout="clearMessage()">
+             onclick="showFeeling(this)">
             <span class="emoji">😌</span>
         </div>
 
     </div>
 
-    <div id="message-box">Hover over a face to express how you feel.</div>
+    <div id="message-box">Tap a face to express how you feel and hear the message.</div>
 
     <script>
         // JavaScript for interaction and Text-to-Speech
@@ -139,39 +177,36 @@
         const synth = window.speechSynthesis;
         let utterance = new SpeechSynthesisUtterance();
 
-        // Clears the message and stops the speech when the mouse moves out
+        // هذه الدالة تم إبقاؤها لإلغاء النطق السابق عند البدء بنطق جديد
         function clearMessage() {
-            messageBox.textContent = "Hover over a face to express how you feel.";
-            messageBox.style.borderColor = '#3498db';
-            
             if (synth.speaking) {
                 synth.cancel();
             }
         }
 
         /**
-         * Displays the emotion message and speaks it out loud.
-         * @param {HTMLElement} element - The emoji element being hovered over.
+         * تعرض رسالة الشعور وتجعل الكمبيوتر ينطقها.
+         * @param {HTMLElement} element - The emoji element that was clicked.
          */
         function showFeeling(element) {
             const message = element.getAttribute('data-emotion');
             
-            // 1. Display the text message
+            // 1. عرض الرسالة النصية
             messageBox.textContent = message;
             messageBox.style.borderColor = element.style.borderColor || element.querySelector('.emoji').style.color;
 
-            // 2. Set up Text-to-Speech
+            // 2. إعداد النطق الآلي (Text-to-Speech)
             if (synth.speaking) {
-                 synth.cancel(); // Stop the previous speech before starting the new one
+                 synth.cancel(); // إيقاف النطق السابق قبل البدء بالجديد
             }
 
-            // Set the text to be spoken
+            // إعداد النص المراد نطقه
             utterance.text = message;
             
-            // Set language to English (US)
+            // تحديد اللغة الإنجليزية (US)
             utterance.lang = 'en-US'; 
             
-            // Start speaking
+            // بدء النطق
             synth.speak(utterance);
         }
     </script>
