@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Super Colorful Emotion Board</title>
+    <style>
+        /* 1. التصميم الأساسي للشاشات الكبيرة (لابتوب) */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f0f8ff; /* خلفية سماوية فاتحة */
+            color: #333;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #1a5e7c; /* لون أزرق غامق للعناوين */
+            margin-bottom: 30px;
+            text-align: center;
+            border-bottom: 4px solid #f39c12; /* خط برتقالي ساطع */
+            padding-bottom: 10px;
+        }
+
+        /* حاوية لوحة المشاعر (عرض أفقي على اللابتوب) */
+        .emotions-board {
+            display: flex;
+            flex-wrap: wrap; /* تسمح بكسر السطر لترتيب العناصر بمرونة */
+            gap: 15px; 
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            max-width: 1000px; 
+            width: 95%;
+            justify-content: center; /* توسيط الوجوه */
+        }
+
+        .emotion-item {
+            cursor: pointer;
+            text-align: center;
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s;
+            padding: 15px;
+            border-radius: 12px;
+            border: 3px solid transparent; 
+            flex-basis: 15%; /* توزيع العناصر (حوالي 6 عناصر في السطر) */
+            min-width: 120px; /* ضمان حد أدنى للعرض */
+        }
+
+        .emotion-item:hover {
+            transform: scale(1.1); 
+            box-shadow: 0 0 20px rgba(243, 156, 18, 0.7); /* ظل برتقالي ساطع عند التحويم */
+        }
+
+        .emoji {
+            font-size: 55px; 
+            display: block;
+            line-height: 1;
+        }
+        
+        /* 3. التلوين المتعدد والمتباين (كل لون بخلفية فاتحة) */
+        /* 1. سعيد - أخضر مبهج */
+        .happy .emoji { color: #2ecc71; }
+        .happy { border-color: #2ecc71; background-color: #e8f8f5; }
+
+        /* 2. حزين - أزرق هادئ */
+        .sad .emoji { color: #3498db; }
+        .sad { border-color: #3498db; background-color: #ebf5fb; }
+
+        /* 3. غاضب - أحمر قوي */
+        .angry .emoji { color: #e74c3c; }
+        .angry { border-color: #e74c3c; background-color: #fdedec; }
+
+        /* 4. خائف - بنفسجي حذر */
+        .scared .emoji { color: #9b59b6; }
+        .scared { border-color: #9b59b6; background-color: #f4ecf7; }
+
+        /* 5. هادئ - سماوي فاتح */
+        .calm .emoji { color: #1abc9c; }
+        .calm { border-color: #1abc9c; background-color: #e8f6f3; }
+
+        /* 6. مفاجأة - أصفر ساطع */
+        .surprised .emoji { color: #f1c40f; }
+        .surprised { border-color: #f1c40f; background-color: #fcf3cf; }
+
+        /* 7. اشمئزاز - أخضر داكن/زيتوني */
+        .disgusted .emoji { color: #82a832; }
+        .disgusted { border-color: #82a832; background-color: #f3f9e8; }
+
+        /* 8. ضجر/ملل - رمادي داكن */
+        .bored .emoji { color: #7f8c8d; }
+        .bored { border-color: #7f8c8d; background-color: #f8f9f9; }
+
+        /* 9. متحمس - برتقالي مشرق */
+        .excited .emoji { color: #ff6347; }
+        .excited { border-color: #ff6347; background-color: #fff0eb; }
+
+
+        /* منطقة عرض الرسالة */
+        #message-box {
+            margin-top: 30px;
+            padding: 20px;
+            width: 80%;
+            max-width: 600px;
+            background-color: #ecf0f1;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: #2c3e50;
+            border: 3px dashed #f39c12;
+        }
+
+        /* 4. Media Query (التصميم الخاص بالهواتف والأجهزة الضيقة) */
+        @media (max-width: 700px) {
+            
+            /* ترتيب العناصر عمودياً على شاشات الموبايل */
+            .emotions-board {
+                flex-direction: column; 
+                gap: 8px; 
+                padding: 10px;
+                box-shadow: none; 
+                border: none;
+                max-width: 95%;
+            }
+
+            /* جعل كل عنصر يمتد بعرض كامل الشاشة مع حدود واضحة */
+            .emotion-item {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 10px;
+                border: 2px solid #ddd;
+                /* إلغاء اللون الخلفي الفاتح ليكون أبسط على الموبايل */
+                background-color: #fff !important; 
+            }
+
+            .emoji {
+                font-size: 40px; 
+            }
+            
+            /* إزالة تأثير التكبير عند التحريك لأنه غير عملي باللمس */
+            .emotion-item:hover {
+                transform: none; 
+            }
+
+            h1 {
+                font-size: 20px;
+            }
+            
+            #message-box {
+                font-size: 18px; 
+                padding: 15px;
+                width: 95%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>My Super Colorful Feelings Today ✨</h1>
+
+    <div class="emotions-board">
+        
+        <div class="emotion-item happy" 
+             data-emotion="I am happy! I feel wonderful and joyful." 
+             onclick="showFeeling(this)">
+            <span class="emoji">😊</span>
+        </div>
+
+        <div class="emotion-item sad" 
+             data-emotion="I am sad. I need a hug or maybe a soft blanket." 
+             onclick="showFeeling(this)">
+            <span class="emoji">😢</span>
+        </div>
+
+        <div class="emotion-item angry" 
+             data-emotion="I am angry! I need a quiet place to breathe deeply." 
+             onclick="showFeeling(this)">
+            <span class="emoji">😡</span>
+        </div>
+
+        <div class="emotion-item scared" 
+             data-emotion="I am scared. Please stay close to me." 
+             onclick="showFeeling(this)">
+            <span class="emoji">😨</span>
+        </div>
+
+        <div class="emotion-item calm" 
+             data-emotion="I am calm and feeling peaceful. Everything is okay." 
+             onclick="showFeeling(this)">
+            <span class="emoji">😌</span>
+        </div>
+
+        <div class="emotion-item surprised" 
+             data-emotion="I am surprised! Wow, I didn't expect that!" 
+             onclick="showFeeling(this)">
+            <span class="emoji">😮</span>
+        </div>
+
+        <div class="emotion-item disgusted" 
+             data-emotion="I feel disgusted. That smells or looks bad." 
+             onclick="showFeeling(this)">
+            <span class="emoji">🤢</span>
+        </div>
+
+        <div class="emotion-item bored" 
+             data-emotion="I am bored. I need something fun or new to do!" 
+             onclick="showFeeling(this)">
+            <span class="emoji">😑</span>
+        </div>
+        
+        <div class="emotion-item excited" 
+             data-emotion="I am excited! I can't wait for this!" 
+             onclick="showFeeling(this)">
+            <span class="emoji">🤩</span>
+        </div>
+
+    </div>
+
+    <div id="message-box">Tap a face to express how you feel and hear the message.</div>
+
+    <script>
+        // JavaScript for interaction and Text-to-Speech
+        const messageBox = document.getElementById('message-box');
+        const synth = window.speechSynthesis;
+        let utterance = new SpeechSynthesisUtterance();
+
+        function clearMessage() {
+            if (synth.speaking) {
+                synth.cancel();
+            }
+        }
+
+        function showFeeling(element) {
+            const message = element.getAttribute('data-emotion');
+            
+            // 1. Display the text message
+            messageBox.textContent = message;
+            messageBox.style.borderColor = element.style.borderColor || element.querySelector('.emoji').style.color;
+
+            // 2. Set up Text-to-Speech
+            if (synth.speaking) {
+                 synth.cancel(); 
+            }
+
+            utterance.text = message;
+            // تحديد اللغة الإنجليزية (US)
+            utterance.lang = 'en-US'; 
+            
+            // بدء النطق
+            synth.speak(utterance);
+        }
+    </script>
+
+</body>
+</html>
