@@ -1,126 +1,180 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>لوحة المشاعر (CSS فقط)</title>
+    <title>Emotion Board for Kids</title>
     <style>
-        /* ------------------- التصميم الأساسي ------------------- */
+        /* (*** CSS styles remain the same for visual appearance ***) */
         body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f4f4f9;
-            margin: 20px;
-            text-align: center;
-            padding-bottom: 50px; /* مسافة سفلية للمحتوى */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f0f8ff; 
+            color: #333;
         }
 
         h1 {
-            color: #333;
-            margin-bottom: 20px;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
         }
 
-        /* ------------------- منطقة اللوحة ------------------- */
-        .feelings-board {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr); /* 3 أعمدة متساوية */
-            gap: 15px;
-            max-width: 900px;
-            margin: 0 auto 30px;
-            padding: 15px;
-            background-color: #fff;
-            border-radius: 12px;
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        /* ------------------- تصميم مربع الشعور ------------------- */
-        .feeling-option {
-            /* تصميم الزر نفسه */
-            padding: 20px;
-            border-radius: 12px;
-            text-align: center;
-            cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s, border 0.2s;
-            border: 3px solid transparent; 
-            min-height: 150px;
+        .emotions-board {
             display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            gap: 20px; 
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
 
-        /* تأثير عند مرور الماوس (Hover) */
-        .feeling-option:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
-            border: 3px solid #007bff; /* إطار أزرق فاتح عند التمرير */
+        .emotion-item {
+            cursor: pointer;
+            text-align: center;
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s;
+            padding: 15px;
+            border-radius: 10px;
+            border: 2px solid transparent; 
         }
 
-        /* ------------------- تصميم الرموز والنصوص ------------------- */
+        .emotion-item:hover {
+            transform: scale(1.1); 
+            box-shadow: 0 0 15px rgba(52, 152, 219, 0.5); 
+        }
+
         .emoji {
-            font-size: 4.5em; 
+            font-size: 60px; 
             display: block;
-            margin-bottom: 5px;
+            line-height: 1; 
         }
 
-        .feeling-option p {
-            font-size: 1.3em; 
+        /* Coloring for each emoji */
+        .happy .emoji { color: #2ecc71; }
+        .happy { border-color: #2ecc71; }
+
+        .sad .emoji { color: #3498db; }
+        .sad { border-color: #3498db; }
+
+        .angry .emoji { color: #e74c3c; }
+        .angry { border-color: #e74c3c; }
+
+        .scared .emoji { color: #9b59b6; }
+        .scared { border-color: #9b59b6; }
+
+        .calm .emoji { color: #1abc9c; }
+        .calm { border-color: #1abc9c; }
+
+        /* Message box area */
+        #message-box {
+            margin-top: 30px;
+            padding: 15px 30px;
+            min-height: 50px;
+            width: 80%;
+            max-width: 500px;
+            background-color: #ecf0f1;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 24px;
             font-weight: bold;
-            color: #333;
-            margin: 0;
+            color: #2c3e50;
+            border: 2px dashed #3498db;
         }
 
-        /* ------------------- ألوان الخلفية ------------------- */
-        #happy { background-color: #d4edda; } 
-        #angry { background-color: #f8d7da; } 
-        #sad   { background-color: #cce5ff; } 
-        #scared { background-color: #fff3cd; } 
-        #excited { background-color: #ffe5f4; } 
-        #calm { background-color: #d1ecf1; } 
-        
     </style>
 </head>
 <body>
 
-    <h1>لوحة المشاعر البصرية</h1>
-    <h2>اختر الشعور الذي يناسبك الآن:</h2>
-    
-    <div class="feelings-board">
+    <h1>My Feelings Board Today ✨</h1>
+
+    <div class="emotions-board">
         
-        <div class="feeling-option" id="happy">
+        <div class="emotion-item happy" 
+             data-emotion="I am happy! I feel comfortable and joyful." 
+             onmouseover="showFeeling(this)" 
+             onmouseout="clearMessage()">
             <span class="emoji">😊</span>
-            <p>سعيد</p>
         </div>
 
-        <div class="feeling-option" id="angry">
-            <span class="emoji">😡</span>
-            <p>غاضب</p>
-        </div>
-        
-        <div class="feeling-option" id="sad">
+        <div class="emotion-item sad" 
+             data-emotion="I am sad... I need a hug." 
+             onmouseover="showFeeling(this)" 
+             onmouseout="clearMessage()">
             <span class="emoji">😢</span>
-            <p>حزين</p>
         </div>
-        
-        <div class="feeling-option" id="scared">
+
+        <div class="emotion-item angry" 
+             data-emotion="I am angry! I need a quiet place to breathe." 
+             onmouseover="showFeeling(this)" 
+             onmouseout="clearMessage()">
+            <span class="emoji">😡</span>
+        </div>
+
+        <div class="emotion-item scared" 
+             data-emotion="I am scared... Can I hold your hand?" 
+             onmouseover="showFeeling(this)" 
+             onmouseout="clearMessage()">
             <span class="emoji">😨</span>
-            <p>خائف</p>
         </div>
-        
-        <div class="feeling-option" id="excited">
-            <span class="emoji">🤩</span>
-            <p>متحمس</p>
-        </div>
-        
-        <div class="feeling-option" id="calm">
+
+        <div class="emotion-item calm" 
+             data-emotion="I am calm and relaxed. Everything is okay." 
+             onmouseover="showFeeling(this)" 
+             onmouseout="clearMessage()">
             <span class="emoji">😌</span>
-            <p>هادئ</p>
         </div>
 
     </div>
 
-    <footer>
-        <p>⚠️ هذه اللوحة مصممة للعرض والتصميم فقط. للتفاعل (النطق أو التسجيل)، يلزم استخدام JavaScript.</p>
-    </footer>
+    <div id="message-box">Hover over a face to express how you feel.</div>
+
+    <script>
+        // JavaScript for interaction and Text-to-Speech
+        const messageBox = document.getElementById('message-box');
+        const synth = window.speechSynthesis;
+        let utterance = new SpeechSynthesisUtterance();
+
+        // Clears the message and stops the speech when the mouse moves out
+        function clearMessage() {
+            messageBox.textContent = "Hover over a face to express how you feel.";
+            messageBox.style.borderColor = '#3498db';
+            
+            if (synth.speaking) {
+                synth.cancel();
+            }
+        }
+
+        /**
+         * Displays the emotion message and speaks it out loud.
+         * @param {HTMLElement} element - The emoji element being hovered over.
+         */
+        function showFeeling(element) {
+            const message = element.getAttribute('data-emotion');
+            
+            // 1. Display the text message
+            messageBox.textContent = message;
+            messageBox.style.borderColor = element.style.borderColor || element.querySelector('.emoji').style.color;
+
+            // 2. Set up Text-to-Speech
+            if (synth.speaking) {
+                 synth.cancel(); // Stop the previous speech before starting the new one
+            }
+
+            // Set the text to be spoken
+            utterance.text = message;
+            
+            // Set language to English (US)
+            utterance.lang = 'en-US'; 
+            
+            // Start speaking
+            synth.speak(utterance);
+        }
+    </script>
 
 </body>
 </html>
